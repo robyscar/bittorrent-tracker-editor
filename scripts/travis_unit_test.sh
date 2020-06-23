@@ -8,6 +8,9 @@ then
   # show Linux OS version
   uname -a
 
+  # snap dependency
+  sudo apt-get install -y libcanberra-gtk-module libgail-common libatk-adaptor overlay-scrollbar-gtk2 openssl
+
   # show available openSSL version
   ldconfig -p|grep ssl
 
