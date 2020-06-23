@@ -8,13 +8,22 @@ then
   # show Linux OS version
   uname -a
 
-  # show openSSL version
-  openssl version
+  # show available openSSL version
+  ldconfig -p|grep ssl
 
-  # Exit immediately if a command exits with a non-zero status.
+  echo 'Start: Test SSL connection'
   set -e
-  xvfb-run enduser/test_trackereditor -a --format=plain
+  xvfb-run enduser/trackereditor -TEST_SSL
   set +e
+  echo 'Succsess: Test SSL connection'
+  
+  if [ "$TRAVIS_CPU_ARCH" = "amd64" ]
+  then
+    # Exit immediately if a command exits with a non-zero status.
+    set -e
+    xvfb-run enduser/test_trackereditor -a --format=plain
+    set +e
+  fi
 
 elif [ "$TRAVIS_OS_NAME" = "osx" ]
 then
