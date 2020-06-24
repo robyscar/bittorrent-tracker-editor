@@ -16,7 +16,7 @@ then
 
   echo 'Start: Test SSL connection'
   set -e
-  xvfb-run enduser/trackereditor -TEST_SSL
+  xvfb-run -e /dev/stdout enduser/trackereditor -TEST_SSL
   set +e
   echo 'Succsess: Test SSL connection'
   
