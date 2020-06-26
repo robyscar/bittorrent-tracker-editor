@@ -16,22 +16,25 @@ jobs:
     - name: Ubuntu 16.04 AMD64 (1.8.2)
       os: linux
       dist: xenial
-      env: LAZ_VER=1.8.2 RELEASE_ZIP_FILE="trackereditor_linux_amd64.zip"
+      env: LAZ_VER=1.8.2 LAZ_OPT="--widgetset=gtk2" RELEASE_ZIP_FILE="trackereditor_linux_amd64.zip"
     - name: Ubuntu 16.04 AArch64 (1.6)
       os: linux
       dist: xenial
       arch: arm64
-      env: LAZ_PKG=true RELEASE_ZIP_FILE="trackereditor_linux_AArch64.zip"
+      env: LAZ_PKG=true LAZ_OPT="--widgetset=gtk2" RELEASE_ZIP_FILE="trackereditor_linux_AArch64.zip"
     - name: Ubuntu 18.04 AMD64 (PKG = 1.8.2)
       os: linux
       dist: bionic
-      env: LAZ_PKG=true  RELEASE_ZIP_FILE="trackereditor_linux_amd64_18_04.zip"
+      env: LAZ_PKG=true LAZ_OPT="--widgetset=gtk2" RELEASE_ZIP_FILE="trackereditor_linux_amd64_18_04.zip"
     - name: Ubuntu 18.04 AArch64 (PKG = 1.8.2)
       os: linux
       dist: bionic
       arch: arm64
-      env: LAZ_PKG=true RELEASE_ZIP_FILE="trackereditor_linux_AArch64_18_04.zip"
-
+      env: LAZ_PKG=true LAZ_OPT="--widgetset=gtk2" RELEASE_ZIP_FILE="trackereditor_linux_AArch64_18_04.zip"
+    - name: Ubuntu 20.04 AMD64 (PKG = 2.0.6)
+      os: linux
+      dist: focal
+      env: LAZ_PKG=true LAZ_OPT="--widgetset=gtk2" RELEASE_ZIP_FILE="trackereditor_linux_amd64_18_04.zip"
 
     # - name: macOS 10.14 (PKG)
     #   os: osx
