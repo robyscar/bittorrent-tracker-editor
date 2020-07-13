@@ -24,7 +24,7 @@ then
   then
     # Exit immediately if a command exits with a non-zero status.
     #set -e
-    xvfb-run enduser/test_trackereditor -a --format=plain
+    #xvfb-run enduser/test_trackereditor -a --format=plain
     #set +e
   fi
 
