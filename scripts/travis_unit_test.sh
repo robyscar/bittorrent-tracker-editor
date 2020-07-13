@@ -15,17 +15,17 @@ then
   ldconfig -p|grep ssl
 
   echo 'Start: Test SSL connection'
-  set -e
+  #set -e
   xvfb-run -a -e /dev/stdout enduser/trackereditor -TEST_SSL
-  set +e
+  #set +e
   echo 'Succsess: Test SSL connection'
   
   if [ "$TRAVIS_CPU_ARCH" = "amd64" ]
   then
     # Exit immediately if a command exits with a non-zero status.
-    set -e
+    #set -e
     xvfb-run enduser/test_trackereditor -a --format=plain
-    set +e
+    #set +e
   fi
 
 elif [ "$TRAVIS_OS_NAME" = "osx" ]
@@ -37,16 +37,16 @@ then
   openssl version
 
   # Exit immediately if a command exits with a non-zero status.
-  set -e
+  #set -e
   enduser/test_trackereditor -a --format=plain
-  set +e
+  #set +e
 
 elif [ "$TRAVIS_OS_NAME" = "windows" ]
 then
   # Exit immediately if a command exits with a non-zero status.
-  set -e
+  #set -e
   enduser/test_trackereditor.exe -a --format=plain
-  set +e
+  #set +e
 fi
 
 
