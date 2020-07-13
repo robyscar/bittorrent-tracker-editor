@@ -15,7 +15,7 @@ jobs:
   include:
     - name: Ubuntu 18.04 AMD64 (PKG = 2.0.10)
       os: linux
-      dist: bionic
+      dist: xenial
       env: LAZ_VER=2.0.10  LAZ_OPT="--widgetset=gtk2" RELEASE_ZIP_FILE="trackereditor_linux_amd64_18_04.zip"
     # - name: Ubuntu 16.04 AMD64 (1.8.2)
     #   os: linux
