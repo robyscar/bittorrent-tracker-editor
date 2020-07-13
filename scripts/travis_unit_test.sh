@@ -17,6 +17,13 @@ then
   echo 'Start: Test SSL connection'
   #set -e
   xvfb-run -a -e /dev/stdout enduser/trackereditor -TEST_SSL
+  # Check exit code
+  exit_code=$?
+  if [ "${exit_code}" != "0" ]
+  then
+	  echo "Test SSL failed: ${exit_code}"
+	  exit 1
+  fi
   #set +e
   echo 'Succsess: Test SSL connection'
   
