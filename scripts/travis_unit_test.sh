@@ -20,13 +20,13 @@ then
   #set +e
   echo 'Succsess: Test SSL connection'
   
-  if [ "$TRAVIS_CPU_ARCH" = "amd64" ]
-  then
-    # Exit immediately if a command exits with a non-zero status.
-    #set -e
-    #xvfb-run enduser/test_trackereditor -a --format=plain
-    #set +e
-  fi
+  # if [ "$TRAVIS_CPU_ARCH" = "amd64" ]
+  # then
+  #   # Exit immediately if a command exits with a non-zero status.
+  #   #set -e
+  #   #xvfb-run enduser/test_trackereditor -a --format=plain
+  #   #set +e
+  # fi
 
 elif [ "$TRAVIS_OS_NAME" = "osx" ]
 then
