@@ -23,3 +23,14 @@ jobs:
       run: lazbuild --build-mode=Release "source/project/tracker_editor/trackereditor.lpi"
     - name: Build the Unit Tests Application
       run: lazbuild --build-mode=Debug "source/project/unit_test/tracker_editor_test.lpi"
+    - name: Run headless test
+      uses: GabrielBB/xvfb-action@v1
+      with:
+        working-directory: ./ #optional
+        run: enduser/test_trackereditor -a --format=plain
+    - name: Clean up after test
+      shell: bash
+      run: |
+        rm -f enduser/console_log.txt
+        rm -f enduser/export_trackers.txt
+        git reset --hard
