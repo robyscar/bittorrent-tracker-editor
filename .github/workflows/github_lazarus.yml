@@ -1,0 +1,25 @@
+name: build-test
+
+on:
+  pull_request:
+  push:
+    paths-ignore:
+    - "README.md"
+
+jobs:
+  build:
+    runs-on: ${{ matrix.operating-system }}
+    strategy:
+      matrix:
+        operating-system: [ubuntu-18.04,windows-latest]
+        lazarus-versions: [2.0.8]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install Lazarus
+      uses: gerryferdinandus/setup-lazarus@v2.2.6
+      with:
+        lazarus-version: ${{ matrix.lazarus-versions }}
+    - name: Build the Main Application
+      run: lazbuild --build-mode=Release "source/project/tracker_editor/trackereditor.lpi"
+    - name: Build the Unit Tests Application
+      run: lazbuild --build-mode=Debug "source/project/unit_test/tracker_editor_test.lpi"
