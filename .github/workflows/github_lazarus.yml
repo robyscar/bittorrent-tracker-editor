@@ -12,7 +12,7 @@ jobs:
     strategy:
       matrix:
         operating-system: [ubuntu-18.04,windows-latest]
-        lazarus-versions: [2.0.8]
+        lazarus-versions: [1.8.2]
     steps:
     - uses: actions/checkout@v2
     - name: Install Lazarus
