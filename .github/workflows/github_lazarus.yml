@@ -49,7 +49,7 @@ jobs:
         ./lazarus/lazarus/lazbuild --build-mode=Release "source/project/tracker_editor/trackereditor.lpi"
     - name: Build the Unit Tests Application
       run: |
-        ./lazarus/lazarus/lazbuild --build-mode=Release "source/project/tracker_editor/trackereditor.lpi"
+        ./lazarus/lazarus/lazbuild --build-mode=Debug "source/project/unit_test/tracker_editor_test.lpi"
     - name: Run headless test
       run: |
         ./enduser/test_trackereditor.exe -a --format=plain
