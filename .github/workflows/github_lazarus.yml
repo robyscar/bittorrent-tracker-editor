@@ -18,7 +18,8 @@ jobs:
         config:
           - os: windows-latest
             name: 'Windows 32'
-            lazarus-url : 'https://sourceforge.net/projects/lazarus/files/Lazarus%20Windows%2032%20bits/Lazarus%202.0.12/lazarus-2.0.12-fpc-3.2.0-win32.exe/download' 
+            lazarus-url : 'https://sourceforge.net/projects/lazarus/files/Lazarus%20Windows%2032%20bits/Lazarus%202.0.12/lazarus-2.0.12-fpc-3.2.0-win32.exe/download'
+            lazarus-parameter : '/VERYSILENT /DIR="c:\lazarus"'
 
 
     steps:
@@ -27,7 +28,8 @@ jobs:
       if: matrix.config.os == 'windows-latest'
       run: |
         curl --retry 5 -L -o lazarus.exe ${{ matrix.config.lazarus-url }}
-        ./lazarus.exe /VERYSILENT /DIR="c:\lazarus"
+        echo "download complete"
+        ./lazarus.exe ${{ matrix.config.lazarus-parameter }}
         echo $GITHUB_PATH
         echo "c:\lazarus" >> $GITHUB_PATH
         echo $GITHUB_PATH
