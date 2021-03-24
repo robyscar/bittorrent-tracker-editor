@@ -18,21 +18,27 @@ jobs:
         config:
           - os: windows-latest
             name: 'Windows 32'
-            fpcup-url: 'https://github.com/LongDirtyAnimAlf/Reiniero-fpcup/releases/download/1.8.2d/fpclazup-i386-win32.exe'
-            fpcup-opt: '--lazrevision=64045'
-            fpc-url: 'https://svn.freepascal.org/svn/fpc/tags/release_3_2_0'
-            laz-url: 'trunk'
+            lazarus-url : 'https://sourceforge.net/projects/lazarus/files/Lazarus%20Windows%2032%20bits/Lazarus%202.0.12/lazarus-2.0.12-fpc-3.2.0-win32.exe/download' 
 
 
     steps:
     - uses: actions/checkout@v2
-
+    - name: Install win 32 version
+      if: matrix.config.os == 'windows-latest'
+      run: |
+        curl --retry 5 -L -o lazarus.exe ${{ matrix.config.lazarus-url }}
+        ./lazarus.exe /VERYSILENT /DIR="c:\lazarus"
+        echo $GITHUB_PATH
+        echo "c:\lazarus" >> $GITHUB_PATH
+        echo $GITHUB_PATH
+        lazbuild --help
     - name: Install Dependencies (Ubuntu)
       if: matrix.config.os == 'ubuntu-latest'
       run: |
         sudo apt-get update
         sudo apt-get -m -y install libgtk2.0-dev libpango1.0-dev
-    - name: Install Lazarus
+    - name: Install Lazarus on (Ubuntu)
+      if: matrix.config.os == 'ubuntu-latest'
       run: |
         curl --retry 5 -L -o fpcup ${{ matrix.config.fpcup-url }}
         chmod +x fpcup
@@ -44,13 +50,15 @@ jobs:
         curl --retry 5 -L -o libs.zip https://github.com/LongDirtyAnimAlf/fpcupdeluxe/releases/download/crosslibs_v1.1/CrossLibsLinuxAarch64.zip && unzip -o libs.zip -d lazarus/
         curl --retry 5 -L -o bins.zip https://github.com/LongDirtyAnimAlf/fpcupdeluxe/releases/download/linuxx64crossbins_v1.0/CrossBinsLinuxAarch64.zip && unzip -o bins.zip -d lazarus/cross/bin
         ./fpcup --installdir=lazarus --ostarget=linux --cputarget=aarch64 --only="FPCCleanOnly,FPCBuildOnly" --crossbindir=lazarus/cross/bin --crosslibdir=lazarus/cross/lib/aarch64-linux --noconfirm --verbose
-    - name: Build the Main Application
+    - name: Build the Main Application for all OS
       run: |
-        ./lazarus/lazarus/lazbuild --build-mode=Release "source/project/tracker_editor/trackereditor.lpi"
-    - name: Build the Unit Tests Application
+        lazbuild --build-mode=Release "source/project/tracker_editor/trackereditor.lpi"
+    - name: Build the Unit Tests Application on windows only
+      if: matrix.config.os == 'windows-latest'
       run: |
-        ./lazarus/lazarus/lazbuild --build-mode=Debug "source/project/unit_test/tracker_editor_test.lpi"
-    - name: Run headless test
+        lazbuild --build-mode=Debug "source/project/unit_test/tracker_editor_test.lpi"
+    - name: Run headless test on windows only
+      if: matrix.config.os == 'windows-latest'
       run: |
         ./enduser/test_trackereditor.exe -a --format=plain
 
